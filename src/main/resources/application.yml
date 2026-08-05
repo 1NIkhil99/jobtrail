@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: jobtrail
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:jobtrail}
+    username: ${DB_USER:jobtrail}
+    password: ${DB_PASSWORD:jobtrail}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc.time_zone: UTC
+
+jobtrail:
+  jwt:
+    secret: ${JWT_SECRET:local-dev-secret-key-that-is-at-least-32-bytes}
+    expiration: ${JWT_EXPIRATION:PT24H}
+
+logging:
+  level:
+    com.jobtrail: INFO

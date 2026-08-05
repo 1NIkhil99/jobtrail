@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+
+jobtrail:
+  jwt:
+    secret: integration-test-secret-key-32-bytes-min!!
+    expiration: PT1H
