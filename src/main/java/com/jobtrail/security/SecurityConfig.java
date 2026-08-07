@@ -3,6 +3,7 @@ package com.jobtrail.security;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -30,6 +31,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        // The single-page client itself is public; the data it loads is not.
+                        .requestMatchers(HttpMethod.GET, "/", "/index.html", "/app.js", "/styles.css").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(
                         (request, response, ex) ->

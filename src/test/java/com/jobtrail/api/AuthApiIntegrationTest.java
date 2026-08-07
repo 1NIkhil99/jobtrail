@@ -106,6 +106,16 @@ class AuthApiIntegrationTest {
     }
 
     @Test
+    void singlePageClientIsServedWithoutAuthentication() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/app.js"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/styles.css"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     void apiDocsAreReachableWithoutAuthentication() throws Exception {
         mockMvc.perform(get("/v3/api-docs"))
                 .andExpect(status().isOk())
