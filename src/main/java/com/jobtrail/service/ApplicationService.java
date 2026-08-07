@@ -84,6 +84,10 @@ public class ApplicationService {
             appendStatusEvent(application, request.status());
             log.info("Application {} moved to {} for user {}", id, request.status(), userId);
         }
+
+        // Flush so a newly appended event carries its generated id and the
+        // response reflects the updated timestamp rather than pre-update state.
+        applicationRepository.flush();
         return ApplicationResponse.withEvents(application);
     }
 

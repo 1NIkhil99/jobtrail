@@ -20,6 +20,15 @@
     <properties>
         <java.version>17</java.version>
         <jjwt.version>0.12.6</jjwt.version>
+        <testcontainers.version>1.21.3</testcontainers.version>
+        <!--
+          docker-java's local transports (named pipe on Windows, unix socket)
+          skip API-version negotiation and fall back to a version that Docker
+          Engine 29 rejects outright, which surfaces as "Could not find a valid
+          Docker environment". Pinning a version every engine since Docker 24
+          accepts keeps Testcontainers working across old and new daemons.
+        -->
+        <docker.api.version>1.43</docker.api.version>
     </properties>
 
     <dependencies>
@@ -96,6 +105,15 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <api.version>${docker.api.version}</api.version>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>

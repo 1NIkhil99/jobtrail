@@ -155,7 +155,8 @@ class ApplicationApiIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("INTERVIEW"))
                 .andExpect(jsonPath("$.statusEvents.length()").value(2))
-                .andExpect(jsonPath("$.statusEvents[1].status").value("INTERVIEW"));
+                .andExpect(jsonPath("$.statusEvents[1].status").value("INTERVIEW"))
+                .andExpect(jsonPath("$.statusEvents[1].id").isNumber());
     }
 
     @Test
