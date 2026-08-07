@@ -106,6 +106,13 @@ class AuthApiIntegrationTest {
     }
 
     @Test
+    void apiDocsAreReachableWithoutAuthentication() throws Exception {
+        mockMvc.perform(get("/v3/api-docs"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.paths['/api/v1/applications']").exists());
+    }
+
+    @Test
     void malformedTokenIsRejected() throws Exception {
         mockMvc.perform(get("/api/v1/applications")
                         .header(HttpHeaders.AUTHORIZATION, "Bearer not-a-real-token"))

@@ -30,6 +30,18 @@ mvn spring-boot:run
 The API is served at `http://localhost:8080`. On an empty database a demo
 account is seeded: `demo@jobtrail.dev` / `password123`.
 
+## Browsing the API
+
+There is no web frontend — JobTrail is a JSON API. Interactive docs are served at:
+
+```
+http://localhost:8080/swagger-ui.html
+```
+
+Log in via `POST /api/v1/auth/login` with the demo credentials, copy the returned
+token, click **Authorize**, and paste it to call the protected endpoints from the
+browser. The raw OpenAPI document is at `/v3/api-docs`.
+
 ## API
 
 All endpoints except `/api/v1/auth/**` require `Authorization: Bearer <token>`.
